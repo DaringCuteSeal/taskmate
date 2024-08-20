@@ -13,7 +13,6 @@ export async function recordExists(pb_instance: PocketBase, collection_name: str
 			if (e.status === 404)
 				return false;
 		}
-		return false;
 		throw(e)
 
 	}
