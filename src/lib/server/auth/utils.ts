@@ -1,9 +1,9 @@
 import PocketBase, { ClientResponseError } from 'pocketbase';
 
-export function recordExists(pb_instance: PocketBase, collection_name: string, field: string, value: string): boolean
+export async function recordExists(pb_instance: PocketBase, collection_name: string, field: string, value: string): Promise<boolean>
 {
 	try {
-		pb_instance.collection(collection_name).getFirstListItem(`${field}="${value}"`);
+		await pb_instance.collection(collection_name).getFirstListItem(`${field}="${value}"`, { requestKey: null });
 		return true;
 
 	}
@@ -13,6 +13,7 @@ export function recordExists(pb_instance: PocketBase, collection_name: string, f
 			if (e.status === 404)
 				return false;
 		}
+		return false;
 		throw(e)
 
 	}

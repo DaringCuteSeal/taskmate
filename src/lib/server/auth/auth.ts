@@ -1,4 +1,4 @@
-import PocketBase, { ClientResponseError } from 'pocketbase';
+import PocketBase from 'pocketbase';
 import { recordExists } from './utils';
 import { PB_USERS_DB, PB_DB_URL, UsersDbField, PB_FINISHED_TASKS_DB, type User, PB_ADMIN_PASSWORD, PB_ADMIN_USER } from './conf';
 import { createHash, randomBytes } from 'node:crypto';
@@ -34,7 +34,7 @@ function generateSessID(): string
 
 export async function registerUser(username: string, password: string): Promise<User>
 {
-	if (recordExists(pb, PB_USERS_DB, UsersDbField.USERNAME, username))
+	if (await recordExists(pb, PB_USERS_DB, UsersDbField.USERNAME, username))
 		throw new Error("Username already taken!")
 
 	const user: User = {
@@ -68,7 +68,7 @@ export async function logInUser(username: string, password: string): Promise<Ses
 		}
 
 		const user_data: User = {
-			username: user_record.password,
+			username: user_record.username,
 			password: user_record.password,
 			session_id: sessID,
 			extracurricular_wed: user_record.extracurricular_wed,
