@@ -1,5 +1,3 @@
-import type { Dayjs } from "dayjs";
-
 export type User = {
 	username: string,
 	password: string,
@@ -28,3 +26,5 @@ export const PB_FINISHED_TASKS_DB="finished_tasks";
 
 export const PB_ADMIN_USER=process.env.DB_ADMIN_USER
 export const PB_ADMIN_PASSWORD=process.env.DB_ADMIN_PASSWORD
+
+export const SESS_ID_COOKIE_NAME = "sess_id"

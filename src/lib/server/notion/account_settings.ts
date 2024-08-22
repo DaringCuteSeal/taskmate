@@ -3,7 +3,7 @@ import { PB_USERS_DB, UsersDbField, type User,  } from "$lib/server/auth/conf"
 import { NotionErrorTypes } from "./errors"
 import { recordExists } from '../auth/utils';
 
-type UserPreferences = {
+export type UserPreferences = {
 	extracurricular_wed: boolean,
 	extracurricular_thu: boolean,
 	extracurricular_fri: boolean,
@@ -20,7 +20,7 @@ export async function getPreferences(pb_instance: PocketBase, sess_id: string): 
 {
 
 	if (!(await recordExists(pb_instance, PB_USERS_DB, UsersDbField.SESSION_ID, sess_id)))
-		throw new Error("invalid session", { cause: NotionErrorTypes.INVALID_SESS})
+		throw new Error("invalid session", { cause: NotionErrorTypes.INVALID_SESS })
 
 	const user = await pb_instance.collection(PB_USERS_DB).getFirstListItem(`${UsersDbField.SESSION_ID}="${sess_id}"`, { requestKey: null });
 	return {
