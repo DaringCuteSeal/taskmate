@@ -1,4 +1,4 @@
-import type { Actions, RequestEvent, PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import { logInUser, registerUser } from '$lib/server/auth/auth';
 
 const SESS_ID_COOKIE_NAME = "sess_id"

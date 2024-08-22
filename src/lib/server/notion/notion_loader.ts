@@ -1,6 +1,7 @@
 import { Client } from '@notionhq/client';
 import { NOTION_TOKEN, NOTION_TASKS_DB, NOTION_AGENDA_DB, NOTION_CALENDAR_DB } from '$env/static/private';
 import type { QueryDatabaseResponse } from '@notionhq/client/build/src/api-endpoints';
+import { NotionErrorTypes } from "./errors"
 import dayjs from 'dayjs';
 
 const notion = new Client({

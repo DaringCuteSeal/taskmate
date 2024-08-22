@@ -1,0 +1,18 @@
+<script lang="ts">
+	import type { PageData } from './$types';
+	export let data: PageData;
+
+</script>
+
+<h1>Preferences</h1>
+
+{#if data.session_id === undefined}
+<p>Not logged in.</p>
+{/if}
+
+{#if data.preferences !== undefined }
+	<p>extracurricular, wednesday: {data.preferences.extracurricular_wed}</p>
+	<p>extracurricular, thursday: {data.preferences.extracurricular_thu}</p>
+	<p>extracurricular, friday: {data.preferences.extracurricular_fri}</p>
+	<p>subjects filter: {data.preferences.subjects_filter}</p>
+{/if}
