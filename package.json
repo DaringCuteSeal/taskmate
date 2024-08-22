@@ -24,6 +24,7 @@
 		"@notionhq/client": "^2.2.15",
 		"dayjs": "^1.11.12",
 		"pocketbase": "^0.21.4",
-		"svelte-i18n": "^4.0.0"
+		"svelte-i18n": "^4.0.0",
+		"yaml": "^2.5.0"
 	}
 }

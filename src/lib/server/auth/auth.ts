@@ -2,10 +2,11 @@ import PocketBase from 'pocketbase';
 import { recordExists } from './utils';
 import { PB_USERS_DB, PB_DB_URL, UsersDbField, PB_FINISHED_TASKS_DB, type User, PB_ADMIN_PASSWORD, PB_ADMIN_USER } from './conf';
 import { createHash, randomBytes } from 'node:crypto';
+import dayjs from 'dayjs';
 
 type SessID = string;
 
-const pb = new PocketBase(PB_DB_URL);
+export const pb = new PocketBase(PB_DB_URL);
 
 if (PB_ADMIN_PASSWORD != undefined && PB_ADMIN_USER != undefined)
 {
@@ -29,7 +30,7 @@ function hashPassword(username: string, password: string): string
 
 function generateSessID(): string
 {
-	return randomBytes(25).toString('base64')
+	return randomBytes(Math.max(Math.round(Math.random() * 80))).toString('base64')
 }
 
 export async function registerUser(username: string, password: string): Promise<User>
@@ -44,6 +45,8 @@ export async function registerUser(username: string, password: string): Promise<
 		extracurricular_wed: false,
 		extracurricular_thu: false,
 		extracurricular_fri: false,
+		subjects_filter: null,
+		expiry: null
 
 	}
 
@@ -74,6 +77,8 @@ export async function logInUser(username: string, password: string): Promise<Ses
 			extracurricular_wed: user_record.extracurricular_wed,
 			extracurricular_thu: user_record.extracurricular_thu,
 			extracurricular_fri: user_record.extracurricular_fri,
+			expiry: dayjs().add(1, "week").toString(),
+			subjects_filter: null
 		}
 
 		const record = await pb.collection(PB_USERS_DB).update(user_record.id, user_data);

@@ -1,3 +1,5 @@
+import type { Dayjs } from "dayjs";
+
 export type User = {
 	username: string,
 	password: string,
@@ -5,6 +7,8 @@ export type User = {
 	extracurricular_wed: boolean,
 	extracurricular_thu: boolean,
 	extracurricular_fri: boolean,
+	subjects_filter: null | string,
+	expiry: null | string
 }
 
 export enum UsersDbField {
@@ -13,7 +17,9 @@ export enum UsersDbField {
 	SESSION_ID = "session_id",
 	EXTRACURRICULAR_WED = "extracurricular_wed",
 	EXTRACURRICULAR_THU = "extracurricular_thu",
-	EXTRACURRICULAR_FRI = "extracurricular_fri"
+	EXTRACURRICULAR_FRI = "extracurricular_fri",
+	SUBJECTS_FILTER = "subjects_filter",
+	EXPIRY = "expiry"
 }
 
 export const PB_DB_URL = "https://taskmate.pockethost.io";
