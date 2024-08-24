@@ -1,12 +1,14 @@
 <script lang="ts">
 import type { PageData } from './$types';
+import { getContext } from "svelte";
+const i18n = getContext("i18n");
 export let data: PageData;
 </script>
 
 
 
 {#if data.is_logged_in && data.preferences !== null }
-	<h1>Preferences</h1>
+	<h1>{ $i18n.t("preferences") }</h1>
 	<p>extracurricular, wednesday: {data.preferences.extracurricular_wed}</p>
 	<p>extracurricular, thursday: {data.preferences.extracurricular_thu}</p>
 	<p>extracurricular, friday: {data.preferences.extracurricular_fri}</p>
