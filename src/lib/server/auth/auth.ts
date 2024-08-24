@@ -46,7 +46,8 @@ export async function registerUser(username: string, password: string): Promise<
 		extracurricular_thu: false,
 		extracurricular_fri: false,
 		subjects_filter: null,
-		expiry: null
+		expiry: null,
+		lang: null
 
 	}
 
@@ -78,7 +79,8 @@ export async function logInUser(username: string, password: string): Promise<Ses
 			extracurricular_thu: user_record.extracurricular_thu,
 			extracurricular_fri: user_record.extracurricular_fri,
 			expiry: dayjs().add(1, "week").format(),
-			subjects_filter: null
+			subjects_filter: user_record.subjects_filter,
+			lang: user_record.lang
 		}
 
 		const record = await pb.collection(PB_USERS_DB).update(user_record.id, user_data);

@@ -5,8 +5,9 @@ export type User = {
 	extracurricular_wed: boolean,
 	extracurricular_thu: boolean,
 	extracurricular_fri: boolean,
-	subjects_filter: null | string,
-	expiry: null | string
+	subjects_filter: string | null,
+	expiry: string | null,
+	lang: string | null
 }
 
 export enum UsersDbField {
