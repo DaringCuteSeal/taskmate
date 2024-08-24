@@ -77,7 +77,7 @@ export async function logInUser(username: string, password: string): Promise<Ses
 			extracurricular_wed: user_record.extracurricular_wed,
 			extracurricular_thu: user_record.extracurricular_thu,
 			extracurricular_fri: user_record.extracurricular_fri,
-			expiry: dayjs().add(1, "week").toString(),
+			expiry: dayjs().add(1, "week").format(),
 			subjects_filter: null
 		}
 

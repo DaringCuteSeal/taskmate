@@ -1,7 +1,7 @@
 import { Client } from '@notionhq/client';
 import { NOTION_TOKEN, NOTION_TASKS_DB, NOTION_AGENDA_DB, NOTION_CALENDAR_DB } from '$env/static/private';
 import type { QueryDatabaseResponse } from '@notionhq/client/build/src/api-endpoints';
-import { NotionErrorTypes } from "./errors"
+import {} from "./errors"
 import dayjs from 'dayjs';
 
 const notion = new Client({
@@ -17,7 +17,7 @@ export async function queryTasksNotion(date: dayjs.Dayjs): Promise<QueryDatabase
 			filter: {
 				"property": "Due",
 				"date": {
-					"on_or_after": date.format()
+					"on_or_after": date.format("YYYY-MM-DD")
 				},
 			},
 			sorts: [
@@ -40,7 +40,7 @@ export async function queryAgendaNotion(date: dayjs.Dayjs): Promise<QueryDatabas
 			filter: {
 				"property": "Date",
 				"date": {
-					"equals": date.format()
+					"equals": date.format("YYYY-MM-DD")
 				},
 			}
 		}
@@ -57,7 +57,7 @@ export async function queryCalendarNotion(date: dayjs.Dayjs): Promise<QueryDatab
 			filter: {
 				"property": "Date",
 				"date": {
-					"equals": date.format()
+					"equals": date.format("YYYY-MM-DD")
 				},
 			}
 		}
