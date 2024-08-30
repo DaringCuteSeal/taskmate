@@ -45,7 +45,6 @@ export const actions = {
 
 		const username = data.get('username');
 		const password = data.get('password');
-		var sessionID: string = "";
 
 		if (username == null || password == null)
 		{

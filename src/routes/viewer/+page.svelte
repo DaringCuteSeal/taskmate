@@ -1,25 +1,88 @@
 <script lang="ts">
 import type { PageData } from './$types';
+import dayjs from "dayjs";
 import { getContext } from "svelte";
 const i18n = getContext("i18n");
 export let data: PageData;
+
+var extracurricular = false;
+if (data.preferences)
+{	
+	const day_no = dayjs().day();
+	switch(day_no)
+		{
+		case 3: if (data.preferences.extracurricular_wed)
+			extracurricular = true;
+		case 4: if (data.preferences.extracurricular_thu)
+			extracurricular = true;
+		case 5: if (data.preferences.extracurricular_fri)
+			extracurricular = true;
+		default:
+			extracurricular = false;
+	}
+}
+
 </script>
 
-
-
 {#if data.is_logged_in && data.preferences !== null }
-	<h1>{ $i18n.t("preferences") }</h1>
-	<p>extracurricular, wednesday: {data.preferences.extracurricular_wed}</p>
-	<p>extracurricular, thursday: {data.preferences.extracurricular_thu}</p>
-	<p>extracurricular, friday: {data.preferences.extracurricular_fri}</p>
-	<p>subjects filter: {data.preferences.subjects_filter.toString()}</p>
-
 	{#if data.agenda_data !== null}
-		<h1>Agenda</h1>
-		<p>school start: {data.agenda_data.school_start}</p>
-		<p>school end: {data.agenda_data.school_end}</p>
-		<p>extracurricular: {data.agenda_data.extracurricular}</p>
-		<p>uniform: {data.agenda_data.uniform}</p>
+		<p>
+			{ $i18n.t("viewer:school_start") } { data.agenda_data.school_start ?? "???" } -
+
+			{#if extracurricular}
+			{ data.agenda_data.school_end_extracurricular ?? "???" } ({data})
+
+			{:else}
+				{ data.agenda_data.school_end ?? "???" }
+			{/if}
+		</p>
+
+		<p>
+			{ $i18n.t("viewer:wear") } { data.agenda_data.uniform ?? "???" }
+		</p>
+
+		<p>
+			{ $i18n.t("viewer:bring_uniform") } { data.agenda_data.uniform ?? "???" }
+		</p>
+
+		{#if data.agenda_data.schedule }
+			<h1>{ $i18n.t("viewer:schedule") } </h1>
+
+			<table>
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">{ $i18n.t("viewer:time") }</th>
+						<th scope="col">{ $i18n.t("viewer:subject") }</th>
+					</tr>
+
+
+				</thead>
+				<tbody>
+					{#each data.agenda_data.schedule as sched_item, idx }
+						<tr>
+							{#if sched_item.break }
+								<th scope="row" colspan="2">
+									{ $i18n.t("viewer:recess") }
+								</th>
+							{:else}
+								<th>
+									{ idx }
+								</th>
+								<td>
+									{ sched_item.start } - { sched_item.end }
+								</td>
+								<td>
+									{ sched_item.name }
+								</td>
+							{/if}
+						</tr>
+
+					{/each}
+				</tbody>
+			</table>
+		{/if}
+
 
 		{#if data.agenda_data.morning_devotion_1}
 		<p style="color: {data.agenda_data.morning_devotion_1.color}">morning devotion 1: {data.agenda_data.morning_devotion_1.title}</p>
@@ -32,11 +95,6 @@ export let data: PageData;
 		{#if data.agenda_data.end_prayer}
 		<p style="color: {data.agenda_data.end_prayer.color}">end prayer: {data.agenda_data.end_prayer.title}</p>
 		{/if}
-
-		<h2>schedule:</h2>
-		{#each data.agenda_data.schedule as schedule, i}
-			<p>{i}: {schedule.name}, start: {schedule.start}, end: {schedule.end}, break: {schedule.break}</p>
-		{/each}
 
 	{/if}
 

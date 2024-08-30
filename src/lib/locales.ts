@@ -7,12 +7,13 @@ i18next
 	.use(LanguageDetector)
 	.use(HttpBackend)
 	.init({
+		ns: ['viewer'],
 		lng: 'en',
 		interpolation: {
 			escapeValue: false,
 		},
 		backend: {
-			loadPath: "/locales/{{lng}}.json",
+			loadPath: "/locales/{{lng}}/{{ns}}.json",
 		},
 
 	});
