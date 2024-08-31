@@ -16,7 +16,6 @@ type PageLoadData = {
 	agenda_data: Agenda | null,
 	events_data: Array<SchoolEvent> | null,
 	tasks_data: Array<Task> | null
-	date: string | null,
 
 }
 
@@ -26,8 +25,7 @@ const null_login: PageLoadData = {
 	session_id: undefined,
 	agenda_data: null,
 	events_data: null,
-	tasks_data: null,
-	date: null
+	tasks_data: null
 
 }
 
@@ -55,7 +53,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
 	var target_date = dayjs(url.searchParams.get(UrlParamName.DATE))
 	if (!target_date.isValid())
 	{
-		target_date = dayjs().add(1, "day");
+		target_date = dayjs();
 
 	}
 
@@ -66,7 +64,6 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
 		agenda_data: await getAgenda(target_date),
 		events_data: await getEvents(target_date),
 		tasks_data: await getTasks(target_date),
-		date: target_date.format(),
 
 	}
 };

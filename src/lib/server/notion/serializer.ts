@@ -34,7 +34,8 @@ export type Agenda = {
 export type Task = {
 	subject: SelectItem | null,
 	description: string,
-	due: dayjs.Dayjs,
+	due: string,
+	id: number | null,
 }
 
 export type SchoolEvent = {
@@ -142,6 +143,7 @@ export async function getTasks(date: dayjs.Dayjs): Promise<Array<Task> | null>
 				color: item.properties.Subject.select.color
 			} : null,
 			due: item.properties.Due?.date.start,
+			id: item.properties.ID?.unique_id
 		}
 		tasks.push(task_item);
 	});

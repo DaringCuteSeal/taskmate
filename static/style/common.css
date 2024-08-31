@@ -1,0 +1,91 @@
+@font-face {
+	font-family: "SUSE";
+	src: url("/assets/SUSE-VariableFont_wght.ttf") format("truetype"),
+}
+
+p, label, h1, h2, h3, h4 {
+	font-family: "SUSE"
+
+}
+
+.text-white {
+	color: #191A1B
+}
+
+input, button {
+	  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+input {
+	border-radius: 25px;
+	padding: 5px;
+	margin: 4px;
+	border: none;
+}
+
+button {
+	border-radius: 15px;
+	border: none;
+	padding: 5px;
+	margin: 4px;
+	transition: background-color 0.5s;
+	font-weight: bold;
+
+}
+
+button:hover {
+	cursor: pointer;
+	
+}
+
+@media (prefers-color-scheme: dark)
+{
+	body { 
+		background-color: #22262E;
+	}
+	p, label, h1, h2, h3, h4 {
+		color: #CBD3E3;
+
+	}
+	
+}
+
+@media (prefers-color-scheme: light)
+{
+	body { 
+		background-color: #DADFEB;
+	}
+	p, label, h1, h2, h3, h4 {
+		color: #191A1B;
+
+	}
+	
+}
+
+
+/* Button Colors */
+
+.btn-blue {
+	background-color: #5A98CF;
+}
+
+.btn-blue:hover {
+	background-color: #43729B;
+	
+}
+
+.btn-green {
+	background-color: #3C6919;
+}
+
+.btn-green:hover {
+	background-color: #2B4C12;
+}
+
+.btn-orange {
+	background-color: #D08250;
+}
+
+.btn-orange {
+	background-color: #AF6E43;
+}

@@ -7,6 +7,10 @@
 
 <p>{data.session_id}</p>
 
+<h1>HI this is a test</h1>
+<h2>hi this is a second header</h2>
+
+
 <form method="POST" action="?/login">
 	<label>
 		Username
@@ -16,7 +20,7 @@
 		Password
 		<input name="password" type="password">
 	</label>
-	<button>Login</button>
+	<button class="btn-blue">Login</button>
 </form>
 
 <form method="POST" action="?/register">
@@ -28,5 +32,5 @@
 		Password
 		<input name="password" type="password">
 	</label>
-	<button>Register</button>
+	<button class="btn-orange">Register</button>
 </form>
