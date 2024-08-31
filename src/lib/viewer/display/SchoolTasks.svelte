@@ -16,8 +16,12 @@ if (tasks != null)
 	{
 		let due = tasks[i].due;
 		if (due != null)
-			readable_due_dates.push(time.Relative(new Date(due)))
-			else
+		{
+			let due_date = new Date(due);
+			due_date.setHours(23, 59, 59, 59);
+			readable_due_dates.push(time.Relative(due_date));
+		}
+		else
 			readable_due_dates.push("-")
 	}
 }
