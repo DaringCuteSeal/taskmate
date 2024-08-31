@@ -2,7 +2,7 @@ import dayjs from "dayjs"
 import { queryAgendaNotion, queryCalendarNotion, queryTasksNotion } from "$lib/server/notion/notion_loader"
 import { parse as yamlParse } from "yaml";
 
-type SelectItem = {
+export type SelectItem = {
 	title: string
 	color: string
 
@@ -33,8 +33,8 @@ export type Agenda = {
 
 export type Task = {
 	subject: SelectItem | null,
-	description: string,
-	due: string,
+	description: string | null,
+	due: string | null,
 	id: number | null,
 }
 
@@ -166,7 +166,7 @@ export async function getEvents(date: dayjs.Dayjs): Promise<Array<SchoolEvent> |
 	const school_events: Array<SchoolEvent> = [];
 	events_query.results.forEach((item: any) => { // HACK: even more hack
 		let event_item: SchoolEvent = {
-			title: item.properties.Name?.rich_text?.content,
+			title: item.properties.Name?.title[0]?.text?.content,
 			start_date: item.properties.Date?.date?.start,
 			subject: item.properties.Subject?.select ? {
 				title: item.properties.Subject.select.name,
