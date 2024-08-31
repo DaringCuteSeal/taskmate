@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { SchoolEvent } from "$lib/server/notion/serializer";
 import { getContext } from "svelte";
+import { getColorHex } from "./get_colors"
 const i18n = getContext("i18n");
 
 export let events: Array<SchoolEvent> | null = null;
@@ -31,13 +32,13 @@ export let events: Array<SchoolEvent> | null = null;
 						{ idx + 1 }
 					</th>
 					<td>
-						<span class="viewer-infobox" style="background-color: {event_item.category?.color ?? "none;"}">
+						<span class="viewer-infobox" style="background-color: { getColorHex(event_item.category?.color) }">
 							{ event_item.category?.title }
 						</span>
 					</td>
 					<td>
 
-						<span class="viewer-infobox" style="background-color: {event_item.subject?.color ?? "none;"}">
+						<span class="viewer-infobox" style="background-color: { getColorHex(event_item.subject?.color) }">
 							{ event_item.subject?.title }
 						</span>
 					</td>

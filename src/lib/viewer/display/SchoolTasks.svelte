@@ -2,6 +2,7 @@
 import type { Task } from "$lib/server/notion/serializer";
 import { getContext } from "svelte";
 import Time from "@radulucut/relative";
+import { getColorHex } from "./get_colors"
 const i18n = getContext("i18n");
 
 export let tasks: Array<Task> | null = null;
@@ -48,7 +49,7 @@ if (tasks != null)
 						{ idx + 1 }
 					</th>
 					<td>
-						<span class="viewer-infobox" style="background-color: {task_item.subject?.color ?? "none;"}">
+						<span class="viewer-infobox" style="background-color: { getColorHex(task_item.subject?.color) }">
 							{ task_item.subject?.title }
 						</span>
 					</td>
