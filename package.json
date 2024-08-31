@@ -22,6 +22,7 @@
 	"dependencies": {
 		"@ctrl/tinycolor": "^4.1.0",
 		"@notionhq/client": "^2.2.15",
+		"@radulucut/relative": "^2.0.5",
 		"dayjs": "^1.11.13",
 		"i18next": "^23.14.0",
 		"i18next-browser-languagedetector": "^8.0.0",
