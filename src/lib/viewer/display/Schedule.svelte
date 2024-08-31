@@ -31,7 +31,7 @@ export let schedule: Array<ScheduleItem> | null = null;
 					</th>
 				{:else}
 					<th>
-						{ idx }
+						{ idx + 1 }
 					</th>
 					<td>
 						{ sched_item.start } - { sched_item.end }
