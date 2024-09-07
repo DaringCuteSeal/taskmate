@@ -7,7 +7,7 @@ export function getColorHex(color_name: string | null | undefined): string {
 		case "blue":
 			return "#28456C"
 		case "green":
-			return "#7A6630"
+			return "#2B593F"
 		case "pink":
 			return "#69314C"
 		case "purple":
