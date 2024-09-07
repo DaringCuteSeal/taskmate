@@ -2,6 +2,7 @@
 import type { PageData } from './$types';
 import { getContext } from 'svelte';
 import dayjs from "dayjs";
+
 import SchoolDuration from "$lib/viewer/display/SchoolDuration.svelte";
 import Uniform from '$lib/viewer/display/Uniform.svelte';
 import UniformBring from "$lib/viewer/display/UniformBring.svelte";
@@ -14,7 +15,14 @@ const i18n = getContext("i18n");
 
 export let data: PageData;
 
-$i18n.changeLanguage(data.preferences.language ?? "en");
+var readable_date: string;
+
+if (data.preferences != null)
+{
+	$i18n.changeLanguage(data.preferences.language ?? "en");
+	if (data.date != null)
+		readable_date = dayjs(data.date).format("dddd, DD MMMM YYYY")
+}
 
 var extracurricular = false;
 if (data.preferences && data.agenda_data?.extracurricular)
@@ -39,62 +47,114 @@ if (data.preferences && data.agenda_data?.extracurricular)
 
 </script>
 
+{ #if data.is_logged_in }
+	{ #if data.agenda_data != null }
+		<div class="agenda-card">
+			<div class="display-card bg-school-duration">
+				<SchoolDuration
+					school_start={data.agenda_data?.school_start}
+					school_end={data.agenda_data?.school_end}
+					school_end_extracurricular={data.agenda_data?.school_end_extracurricular}
+					extracurricular={extracurricular}
+				/>
+			</div>
 
-{ #if data.agenda_data != null }
-	<div class="agenda-card">
-		<span>
-			<SchoolDuration
-				school_start={data.agenda_data?.school_start}
-				school_end={data.agenda_data?.school_end}
-				school_end_extracurricular={data.agenda_data?.school_end_extracurricular}
-				extracurricular={extracurricular}
-			/>
-		</span>
+			<div class="display-card bg-uniform">
+				<Uniform
+					uniform={data.agenda_data?.uniform}
+				/>
+			</div>
 
-		<span>
-			<Uniform
-				uniform={data.agenda_data?.uniform}
-			/>
-		</span>
+			<div class="display-card bg-uniform-bring">
+				<UniformBring
+					uniform_bring={data.agenda_data?.uniform_bring}
+				/>
+			</div>
 
-		<span>
-			<UniformBring
-				uniform_bring={data.agenda_data?.uniform_bring}
-			/>
-		</span>
+			<div class="display-card bg-schedule">
+				<Schedule
+					schedule={data.agenda_data?.schedule}
+				/>
+			</div>
 
-		<span>
-			<Schedule
-				schedule={data.agenda_data?.schedule}
-			/>
-		</span>
+			<div class="display-card bg-tasks">
+				<SchoolTasks
+					tasks={data.tasks_data}
+				/>
+			</div>
 
-		<span>
-			<SchoolTasks
-				tasks={data.tasks_data}
-			/>
-		</span>
+			<div class="display-card bg-events">
+				<SchoolEvents
+					events={data.events_data}
+				/>
+			</div>
 
-		<span>
-			<SchoolEvents
-				events={data.events_data}
-			/>
-		</span>
+			<div class="display-card bg-prayer">
+				<Prayer
+					song_and_opening={data.agenda_data?.morning_devotion_1}
+					devotional_and_closing={data.agenda_data?.morning_devotion_2}
+					end_prayer={data.agenda_data?.end_prayer}
+				/>
+			</div>
 
-		<span>
-			<Prayer
-				song_and_opening={data.agenda_data?.morning_devotion_1}
-				devotional_and_closing={data.agenda_data?.morning_devotion_2}
-				end_prayer={data.agenda_data?.end_prayer}
-			/>
-		</span>
+			<div class="display-card bg-notes">
+				<Notes
+					notes={data.agenda_data.notes}
+				/>
+			</div>
 
-		<span>
-			<Notes
-				notes={data.agenda_data.notes}
-			/>
-
-	</div>
+		</div>
+	{ :else }
+		<p>No agenda written.</p>
+	{ /if }
 { :else }
-	<p>No agenda written.</p>
+	<p>Not logged in.</p>
+	<a href="/login">Log in</a>
+
 { /if }
+
+<style>
+.title { 
+	text-align: center;
+	font-size: 2.4em;
+}
+
+.agenda-card {
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+	margin: 1% 4% 1% 4%;
+}
+
+.display-card {
+	padding: 1em;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-top: 9px;
+	padding-bottom: 9px;
+	border-radius: 10px;
+	background-color: rgba(51, 57, 70, 40%);
+}
+
+@media print {
+	.title {
+		text-align: left;
+		font-size: 2em;
+	}
+
+	.agenda-card {
+		margin: 0% 0% 0% 0%;
+	}
+
+	.display-card {
+		padding: 0px;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		padding-top: 0px;
+		padding-bottom: 0px;
+		border-radius: 0px;
+	}
+}
+
+
+</style>
