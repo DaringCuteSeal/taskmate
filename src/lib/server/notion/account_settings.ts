@@ -8,6 +8,7 @@ export type UserPreferences = {
 	extracurricular_thu: boolean,
 	extracurricular_fri: boolean,
 	subjects_filter: Array<string>
+	language: string | null,
 }
 
 function stringifySubjectsFilter(filter: Array<string>): string
@@ -28,6 +29,7 @@ export async function getPreferences(pb_instance: PocketBase, sess_id: string): 
 		extracurricular_wed: user.extracurricular_wed,
 		extracurricular_thu: user.extracurricular_thu,
 		extracurricular_fri: user.extracurricular_fri,
+		language: user.lang
 	}
 
 }
@@ -48,7 +50,8 @@ export async function setPreferences(pb_instance: PocketBase, sess_id: string, p
 		extracurricular_fri: preferences.extracurricular_fri,
 		session_id: sess_id,
 		subjects_filter: stringifySubjectsFilter(preferences.subjects_filter),
-		expiry: user.expiry
+		expiry: user.expiry,
+		language: preferences.language,
 	};
 
 	await pb_instance.collection(PB_USERS_DB).update('RECORD_ID', data);

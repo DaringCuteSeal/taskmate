@@ -8,7 +8,6 @@ i18next
 	.use(HttpBackend)
 	.init({
 		ns: ['viewer'],
-		lng: 'en',
 		interpolation: {
 			escapeValue: false,
 		},

@@ -11,7 +11,7 @@ export let tasks: Array<Task> | null = null;
 let readable_due_dates: Array<string> = []
 if (tasks != null)
 {
-	const time = Time(navigator.language);
+	const time = Time($i18n.language ?? "en");
 	for (let i = 0; i < tasks.length; i++)
 	{
 		let due = tasks[i].due;
