@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PageData } from './$types';
+import { getContext } from 'svelte';
 import dayjs from "dayjs";
 import SchoolDuration from "$lib/viewer/display/SchoolDuration.svelte";
 import Uniform from '$lib/viewer/display/Uniform.svelte';
@@ -8,8 +9,12 @@ import Schedule from "$lib/viewer/display/Schedule.svelte";
 import SchoolTasks from "$lib/viewer/display/SchoolTasks.svelte";
 import SchoolEvents from '$lib/viewer/display/SchoolEvents.svelte';
 import Prayer from '$lib/viewer/display/Prayer.svelte';
+import Notes from '$lib/viewer/display/Notes.svelte';
+const i18n = getContext("i18n");
 
 export let data: PageData;
+
+$i18n.changeLanguage(data.preferences.language ?? "en");
 
 var extracurricular = false;
 if (data.preferences && data.agenda_data?.extracurricular)
@@ -84,5 +89,12 @@ if (data.preferences && data.agenda_data?.extracurricular)
 			/>
 		</span>
 
+		<span>
+			<Notes
+				notes={data.agenda_data.notes}
+			/>
+
 	</div>
+{ :else }
+	<p>No agenda written.</p>
 { /if }

@@ -1,6 +1,6 @@
 import { Client } from '@notionhq/client';
 import { NOTION_TOKEN, NOTION_TASKS_DB, NOTION_AGENDA_DB, NOTION_CALENDAR_DB } from '$env/static/private';
-import type { QueryDatabaseResponse } from '@notionhq/client/build/src/api-endpoints';
+import type { ListBlockChildrenResponse, QueryDatabaseResponse } from '@notionhq/client/build/src/api-endpoints';
 import {} from "./errors"
 import dayjs from 'dayjs';
 
@@ -64,3 +64,11 @@ export async function queryCalendarNotion(date: dayjs.Dayjs): Promise<QueryDatab
 	);
 
 };
+
+export async function queryPageBlocks(page_id: string): Promise<ListBlockChildrenResponse>
+{
+	return await notion.blocks.children.list({
+		block_id: page_id,
+		page_size: 1,
+	});
+}

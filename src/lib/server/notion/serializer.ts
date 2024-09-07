@@ -1,5 +1,5 @@
 import dayjs from "dayjs"
-import { queryAgendaNotion, queryCalendarNotion, queryTasksNotion } from "$lib/server/notion/notion_loader"
+import { queryAgendaNotion, queryCalendarNotion, queryTasksNotion, queryPageBlocks } from "$lib/server/notion/notion_loader"
 import { parse as yamlParse } from "yaml";
 
 export type SelectItem = {
@@ -28,6 +28,7 @@ export type Agenda = {
 	morning_devotion_1: SelectItem | null;
 	morning_devotion_2: SelectItem | null;
 	end_prayer: SelectItem | null;
+	notes: Array<string> | null;
 
 }
 
@@ -70,6 +71,21 @@ function parseSchedule(data: string): Array<ScheduleItem>
 
 
 }
+
+async function getAgendaNote(page_id: string): Promise<Array<string> | null>
+{
+	const page_query = await queryPageBlocks(page_id);
+
+	if (page_query.results.length == 0)
+		return null;
+
+	// TODO: better way to check
+	if (!('paragraph' in page_query.results[0]))
+		return null;
+
+	return page_query.results[0].paragraph.rich_text[0].plain_text.split('\n');
+}
+
 export async function getAgenda(date: dayjs.Dayjs): Promise<Agenda | null>
 {
 	// TODO: error handling?
@@ -116,10 +132,8 @@ export async function getAgenda(date: dayjs.Dayjs): Promise<Agenda | null>
 		title: agenda_data.Morning_Devotion_2.select.name,
 		color: agenda_data.Morning_Devotion_2.select.color
 		} : null,
-
+		notes: agenda_query.results[0].object == "page" ? await getAgendaNote(agenda_query.results[0].id) : null,
 	};
-
-
 }
 
 export async function getTasks(date: dayjs.Dayjs): Promise<Array<Task> | null>
