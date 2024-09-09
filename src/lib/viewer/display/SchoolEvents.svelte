@@ -33,13 +33,13 @@ export let events: Array<SchoolEvent> | null = null;
 					</th>
 					<td>
 						<span class="viewer-infobox" style="background-color: { getColorHex(event_item.category?.color) }">
-							{ event_item.category?.title }
+							{ event_item.category?.title ?? "-"}
 						</span>
 					</td>
 					<td>
 
 						<span class="viewer-infobox" style="background-color: { getColorHex(event_item.subject?.color) }">
-							{ event_item.subject?.title }
+							{ event_item.subject?.title ?? "-"}
 						</span>
 					</td>
 					<td>
