@@ -190,7 +190,7 @@ export async function getEvents(date: dayjs.Dayjs): Promise<Array<SchoolEvent> |
 				title: item.properties.Category.select.name,
 				color: item.properties.Category.select.color
 			} : null,
-			material: item.properties["Material"].rich_text?.content
+			material: item.properties["Material"].rich_text[0]?.plain_text
 		}
 		school_events.push(event_item);
 	});
