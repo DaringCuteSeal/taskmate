@@ -11,6 +11,7 @@ import SchoolTasks from "$lib/viewer/display/SchoolTasks.svelte";
 import SchoolEvents from '$lib/viewer/display/SchoolEvents.svelte';
 import Prayer from '$lib/viewer/display/Prayer.svelte';
 import Notes from '$lib/viewer/display/Notes.svelte';
+import Title from '$lib/viewer/display/Title.svelte';
 const i18n = getContext("i18n");
 
 export let data: PageData;
@@ -44,73 +45,70 @@ if (data.preferences != null)
 	}
 }
 
-
 </script>
 
-{ #if data.is_logged_in }
-	{ #if data.agenda_data != null }
-		<div class="agenda-card">
-			<div class="display-card bg-school-duration">
-				<SchoolDuration
-					school_start={data.agenda_data?.school_start}
-					school_end={data.agenda_data?.school_end}
-					school_end_extracurricular={data.agenda_data?.school_end_extracurricular}
-					extracurricular={extracurricular}
-				/>
-			</div>
+{ #if data.agenda_data != null }
+	<div class="agenda-card">
+		<Title
+			date={data.date}
+		/>
 
-			<div class="display-card bg-uniform">
-				<Uniform
-					uniform={data.agenda_data?.uniform}
-				/>
-			</div>
-
-			<div class="display-card bg-uniform-bring">
-				<UniformBring
-					uniform_bring={data.agenda_data?.uniform_bring}
-				/>
-			</div>
-
-			<div class="display-card bg-schedule">
-				<Schedule
-					schedule={data.agenda_data?.schedule}
-				/>
-			</div>
-
-			<div class="display-card bg-tasks">
-				<SchoolTasks
-					tasks={data.tasks_data}
-				/>
-			</div>
-
-			<div class="display-card bg-events">
-				<SchoolEvents
-					events={data.events_data}
-				/>
-			</div>
-
-			<div class="display-card bg-prayer">
-				<Prayer
-					song_and_opening={data.agenda_data?.morning_devotion_1}
-					devotional_and_closing={data.agenda_data?.morning_devotion_2}
-					end_prayer={data.agenda_data?.end_prayer}
-				/>
-			</div>
-
-			<div class="display-card bg-notes">
-				<Notes
-					notes={data.agenda_data.notes}
-				/>
-			</div>
-
+		<div class="display-card bg-school-duration">
+			<SchoolDuration
+				school_start={data.agenda_data?.school_start}
+				school_end={data.agenda_data?.school_end}
+				school_end_extracurricular={data.agenda_data?.school_end_extracurricular}
+				extracurricular={extracurricular}
+			/>
 		</div>
-	{ :else }
-		<p>No agenda written.</p>
-	{ /if }
-{ :else }
-	<p>Not logged in.</p>
-	<a href="/login">Log in</a>
 
+		<div class="display-card bg-uniform">
+			<Uniform
+				uniform={data.agenda_data?.uniform}
+			/>
+		</div>
+
+		<div class="display-card bg-uniform-bring">
+			<UniformBring
+				uniform_bring={data.agenda_data?.uniform_bring}
+			/>
+		</div>
+
+		<div class="display-card bg-schedule">
+			<Schedule
+				schedule={data.agenda_data?.schedule}
+			/>
+		</div>
+
+		<div class="display-card bg-tasks">
+			<SchoolTasks
+				tasks={data.tasks_data}
+			/>
+		</div>
+
+		<div class="display-card bg-events">
+			<SchoolEvents
+				events={data.events_data}
+			/>
+		</div>
+
+		<div class="display-card bg-prayer">
+			<Prayer
+				song_and_opening={data.agenda_data?.morning_devotion_1}
+				devotional_and_closing={data.agenda_data?.morning_devotion_2}
+				end_prayer={data.agenda_data?.end_prayer}
+			/>
+		</div>
+
+		<div class="display-card bg-notes">
+			<Notes
+				notes={data.agenda_data.notes}
+			/>
+		</div>
+
+	</div>
+{ :else }
+	<p>No agenda written.</p>
 { /if }
 
 <style>

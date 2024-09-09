@@ -46,7 +46,6 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
 	}
 
 	return {
-		is_logged_in: true,
 		preferences: preferences,
 		session_id: session_id,
 		agenda_data: await getAgenda(target_date),
@@ -54,5 +53,5 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
 		tasks_data: await getTasks(target_date),
 		date: target_date.format(),
 
-	}
+	} satisfies PageLoadData
 };
