@@ -41,7 +41,7 @@ if (tasks != null)
 				<th scope="col">{ $i18n.t("viewer:subject") }</th>
 				<th scope="col">{ $i18n.t("viewer:task") }</th>
 				<th scope="col">{ $i18n.t("viewer:due") }</th>
-				<th scope="col">{ $i18n.t("viewer:status") }</th>
+				<!-- <th scope="col">{ $i18n.t("viewer:status") }</th> -->
 			</tr>
 
 
@@ -63,9 +63,9 @@ if (tasks != null)
 					<td>
 						{ readable_due_dates[idx] }
 					</td>
-					<td>
-						WIP
-					</td>
+					<!-- <td> -->
+					<!-- 	WIP -->
+					<!-- </td> -->
 
 				</tr>
 
