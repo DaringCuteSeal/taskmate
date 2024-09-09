@@ -1,7 +1,8 @@
 import PocketBase from 'pocketbase';
 import { recordExists } from './utils';
 import { PB_USERS_DB, PB_DB_URL, UsersDbField, PB_FINISHED_TASKS_DB, type User, PB_ADMIN_PASSWORD, PB_ADMIN_USER } from './conf';
-import { createHash, randomBytes } from 'node:crypto';
+import ShortUniqueId from 'short-unique-id';
+import { hash as argon2Hash, verify as argon2Verify } from 'argon2';
 import dayjs from 'dayjs';
 
 type SessID = string;
@@ -22,25 +23,35 @@ function saltPassword(username: string, password: string): string
 	return password + username.toUpperCase().slice(username.length / 2)
 }
 
-function hashPassword(username: string, password: string): string
+async function hashPassword(password: string): Promise<string>
 {
-	return createHash("sha256").update(saltPassword(username, password)).digest("hex");
+	return await argon2Hash(password)
 
+}
+
+async function verifyPassword(hash: string, password: string): Promise<bool>
+{
+	return await argon2Verify(hash, password);
 }
 
 function generateSessID(): string
 {
-	return randomBytes(Math.max(Math.round(Math.random() * 80))).toString('base64')
+	const uid = new ShortUniqueId({
+		dictionary: 'hex',
+	});
+	return uid.stamp(128);
+
 }
 
 export async function registerUser(username: string, password: string): Promise<User>
 {
 	if (await recordExists(pb, PB_USERS_DB, UsersDbField.USERNAME, username))
 		throw new Error("Username already taken!")
+	console.log(await hashPassword(password));
 
 	const user: User = {
 		username: username,
-		password: hashPassword(username, password),
+		password: await hashPassword(password),
 		session_id: null,
 		extracurricular_wed: false,
 		extracurricular_thu: false,
@@ -59,8 +70,9 @@ export async function logInUser(username: string, password: string): Promise<Ses
 	if (!recordExists(pb, PB_USERS_DB, UsersDbField.USERNAME, username))
 		throw new Error("User does not exist!")
 
-	const user_record = await pb.collection(PB_USERS_DB).getFirstListItem(`username="${username}"`)
-	if (hashPassword(username, password) == user_record.password)
+	const user_record = await pb.collection(PB_USERS_DB).getFirstListItem(`username="${username}"`);
+	console.log(await verifyPassword(user_record.password, password));
+	if (await verifyPassword(user_record.password, password))
 	{
 		var sessID: SessID;
 		if (user_record.session_id != null)
