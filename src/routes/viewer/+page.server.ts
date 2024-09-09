@@ -10,7 +10,6 @@ enum UrlParamName {
 }
 
 type PageLoadData = {
-	is_logged_in: boolean,
 	preferences: UserPreferences | null,
 	session_id: string | undefined,
 	agenda_data: Agenda | null,
@@ -20,39 +19,26 @@ type PageLoadData = {
 
 }
 
-const null_login: PageLoadData = {
-	is_logged_in: false,
-	preferences: null,
-	session_id: undefined,
-	agenda_data: null,
-	events_data: null,
-	tasks_data: null,
-	date: null
-
-}
-
 export const load: PageServerLoad = async ({ cookies, url }) => {
-	const session_id = cookies.get(SESS_ID_COOKIE_NAME)
+	const session_id = cookies.get(SESS_ID_COOKIE_NAME);
 
 	var preferences: UserPreferences | null = null;
 
-	if (session_id === undefined || session_id.toString().length == 0)
+	if (session_id !== undefined && session_id.toString().length > 0)
 	{
-
-		cookies.set("sess_id", "", { path: '/' });
-		return null_login;
-	}
-
-	try {
-		preferences =  await getPreferences(pb, session_id);
-	}
-	catch (e)
+		try {
+			preferences =  await getPreferences(pb, session_id);
+		}
+		catch (e)
 	{
-		cookies.set("sess_id", "", { path: '/' });
-		return null_login;
+			preferences = null;
+		}
+
 	}
+
 
 	var target_date = dayjs(url.searchParams.get(UrlParamName.DATE))
+
 	if (!target_date.isValid())
 	{
 		target_date = dayjs().add(1, "day");

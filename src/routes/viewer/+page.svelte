@@ -15,35 +15,35 @@ const i18n = getContext("i18n");
 
 export let data: PageData;
 
-var readable_date: string;
+// Defaults if not logged in
+var extracurricular = false;
 
+// If logged in
 if (data.preferences != null)
 {
 	$i18n.changeLanguage(data.preferences.language ?? "en");
-	if (data.date != null)
-		readable_date = dayjs(data.date).format("dddd, DD MMMM YYYY")
-}
 
-var extracurricular = false;
-if (data.preferences && data.agenda_data?.extracurricular)
-{	
-	const day_no = dayjs(data.date).day();
-	switch(day_no)
-		{
-		case 3: if (data.preferences.extracurricular_wed)
-			extracurricular = true;
-			break;
-		case 4: if (data.preferences.extracurricular_thu)
-			extracurricular = true;
-			break;
-		case 5: if (data.preferences.extracurricular_fri)
-			extracurricular = true;
-			break;
-		default:
-			extracurricular = false;
-			break;
+	if (data.agenda_data?.extracurricular)
+	{	
+		const day_no = dayjs(data.date).day();
+		switch(day_no)
+			{
+			case 3: if (data.preferences.extracurricular_wed)
+				extracurricular = true;
+				break;
+			case 4: if (data.preferences.extracurricular_thu)
+				extracurricular = true;
+				break;
+			case 5: if (data.preferences.extracurricular_fri)
+				extracurricular = true;
+				break;
+			default:
+				extracurricular = false;
+				break;
+		}
 	}
 }
+
 
 </script>
 
@@ -123,7 +123,7 @@ if (data.preferences && data.agenda_data?.extracurricular)
 	align-self: center;
 	display: flex;
 	flex-direction: column;
-	margin: 1% 4% 1% 4%;
+	margin: 1% 1% 1% 1%;
 }
 
 .display-card {
