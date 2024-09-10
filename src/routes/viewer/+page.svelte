@@ -131,7 +131,21 @@ if (data.preferences != null)
 	padding-top: 9px;
 	padding-bottom: 9px;
 	border-radius: 10px;
-	background-color: rgba(51, 57, 70, 40%);
+}
+
+@media (prefers-color-scheme: dark)
+{
+	.display-card { 
+		background-color: rgba(51, 57, 70, 40%);
+	}
+}
+
+@media (prefers-color-scheme: light)
+{
+	.display-card { 
+		background-color: rgba(51, 57, 70, 10%);
+	}
+	
 }
 
 @media print {
