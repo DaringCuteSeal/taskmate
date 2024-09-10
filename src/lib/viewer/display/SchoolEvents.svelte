@@ -8,7 +8,7 @@ export let events: Array<SchoolEvent> | null = null;
 </script>
 
 <h1>
-	<i class="fa-solid fa-book-bookmark"></i>
+	<i class="fa-regular fa-calendar"></i>
 	{ $i18n.t("viewer:events") }
 </h1>
 
