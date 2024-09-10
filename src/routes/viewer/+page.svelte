@@ -49,9 +49,11 @@ if (data.preferences != null)
 
 { #if data.agenda_data != null }
 	<div class="agenda-card">
-		<Title
-			date={data.date}
-		/>
+		<div class="title">
+			<Title
+				date={data.date}
+			/>
+		</div>
 
 		<div class="display-card bg-school-duration">
 			<SchoolDuration
