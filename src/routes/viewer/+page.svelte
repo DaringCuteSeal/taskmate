@@ -116,7 +116,7 @@ if (data.preferences != null)
 <style>
 .title { 
 	text-align: center;
-	font-size: 2.4em;
+	font-size: 1em;
 }
 
 .agenda-card {
@@ -153,7 +153,7 @@ if (data.preferences != null)
 @media print {
 	.title {
 		text-align: left;
-		font-size: 2em;
+		font-size: 1em;
 	}
 
 	.agenda-card {
