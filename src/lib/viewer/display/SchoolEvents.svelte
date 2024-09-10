@@ -13,46 +13,48 @@ export let events: Array<SchoolEvent> | null = null;
 </h1>
 
 {#if events != null }
-	<table>
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">{ $i18n.t("viewer:category") }</th>
-				<th scope="col">{ $i18n.t("viewer:subject") }</th>
-				<th scope="col">{ $i18n.t("viewer:event") }</th>
-				<th scope="col">{ $i18n.t("viewer:material") }</th>
-			</tr>
-
-
-		</thead>
-		<tbody>
-			{#each events as event_item, idx }
+	<div class="table-div">
+		<table>
+			<thead>
 				<tr>
-					<th>
-						{ idx + 1 }
-					</th>
-					<td>
-						<span class="viewer-infobox" style="background-color: { getColorHex(event_item.category?.color) }">
-							{ event_item.category?.title ?? "-"}
-						</span>
-					</td>
-					<td>
-
-						<span class="viewer-infobox" style="background-color: { getColorHex(event_item.subject?.color) }">
-							{ event_item.subject?.title ?? "-"}
-						</span>
-					</td>
-					<td>
-						{ event_item.title ?? "-" }
-					</td>
-					<td>
-						{ event_item.material ?? "-" }
-					</td>
+					<th scope="col">#</th>
+					<th scope="col">{ $i18n.t("viewer:category") }</th>
+					<th scope="col">{ $i18n.t("viewer:subject") }</th>
+					<th scope="col">{ $i18n.t("viewer:event") }</th>
+					<th scope="col">{ $i18n.t("viewer:material") }</th>
 				</tr>
 
-			{/each}
-		</tbody>
-	</table>
+
+			</thead>
+			<tbody>
+				{#each events as event_item, idx }
+					<tr>
+						<th>
+							{ idx + 1 }
+						</th>
+						<td>
+							<span class="viewer-infobox" style="background-color: { getColorHex(event_item.category?.color) }">
+								{ event_item.category?.title ?? "-"}
+							</span>
+						</td>
+						<td>
+
+							<span class="viewer-infobox" style="background-color: { getColorHex(event_item.subject?.color) }">
+								{ event_item.subject?.title ?? "-"}
+							</span>
+						</td>
+						<td>
+							{ event_item.title ?? "-" }
+						</td>
+						<td>
+							{ event_item.material ?? "-" }
+						</td>
+					</tr>
+
+				{/each}
+			</tbody>
+		</table>
+	</div>
 {:else}
 	<p>
 		{ $i18n.t("viewer:events_unavailable") }.
@@ -66,7 +68,13 @@ table {
 	font-family: sans-serif;
 	font-size: 0.8rem;
 	letter-spacing: 1px;
+	width: 100%;
 }
+
+.table-div {
+	overflow-x: auto;
+}
+
 
 @media (prefers-color-scheme: dark)
 {

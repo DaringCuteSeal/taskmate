@@ -13,16 +13,16 @@ if (tasks != null)
 {
 	const time = Time($i18n.language ?? "en");
 	for (let i = 0; i < tasks.length; i++)
-	{
+{
 		let due = tasks[i].due;
 		if (due != null)
-		{
+	{
 			let due_date = new Date(due);
 			due_date.setHours(23, 59, 59, 59);
 			readable_due_dates.push(time.Relative(due_date));
 		}
 		else
-			readable_due_dates.push("-")
+		readable_due_dates.push("-")
 	}
 }
 
@@ -34,44 +34,46 @@ if (tasks != null)
 </h1>
 
 {#if tasks != null }
-	<table>
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">{ $i18n.t("viewer:subject") }</th>
-				<th scope="col">{ $i18n.t("viewer:task") }</th>
-				<th scope="col">{ $i18n.t("viewer:due") }</th>
-				<!-- <th scope="col">{ $i18n.t("viewer:status") }</th> -->
-			</tr>
-
-
-		</thead>
-		<tbody>
-			{#each tasks as task_item, idx }
+	<div class="table-div">
+		<table>
+			<thead>
 				<tr>
-					<th>
-						{ idx + 1 }
-					</th>
-					<td>
-						<span class="viewer-infobox" style="background-color: { getColorHex(task_item.subject?.color) }">
-							{ task_item.subject?.title }
-						</span>
-					</td>
-					<td>
-						{ task_item.description ?? "-" }
-					</td>
-					<td>
-						{ readable_due_dates[idx] }
-					</td>
-					<!-- <td> -->
-					<!-- 	WIP -->
-					<!-- </td> -->
-
+					<th scope="col">#</th>
+					<th scope="col">{ $i18n.t("viewer:subject") }</th>
+					<th scope="col">{ $i18n.t("viewer:task") }</th>
+					<th scope="col">{ $i18n.t("viewer:due") }</th>
+					<!-- <th scope="col">{ $i18n.t("viewer:status") }</th> -->
 				</tr>
 
-			{/each}
-		</tbody>
-	</table>
+
+			</thead>
+			<tbody>
+				{#each tasks as task_item, idx }
+					<tr>
+						<th>
+							{ idx + 1 }
+						</th>
+						<td>
+							<span class="viewer-infobox" style="background-color: { getColorHex(task_item.subject?.color) }">
+								{ task_item.subject?.title }
+							</span>
+						</td>
+						<td>
+							{ task_item.description ?? "-" }
+						</td>
+						<td>
+							{ readable_due_dates[idx] }
+						</td>
+						<!-- <td> -->
+						<!-- 	WIP -->
+						<!-- </td> -->
+
+					</tr>
+
+				{/each}
+			</tbody>
+		</table>
+	</div>
 {:else}
 	<p>
 		{ $i18n.t("viewer:schedule_unavailable") }.
@@ -86,6 +88,11 @@ table {
 	font-size: 0.8rem;
 	letter-spacing: 1px;
 }
+
+.table-div {
+	overflow-x: auto;
+}
+
 
 @media (prefers-color-scheme: dark)
 {

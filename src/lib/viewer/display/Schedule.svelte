@@ -12,39 +12,41 @@ export let schedule: Array<ScheduleItem> | null = null;
 </h1>
 
 {#if schedule != null }
-<table>
-	<thead>
-		<tr>
-			<th scope="col">#</th>
-			<th scope="col">{ $i18n.t("viewer:time") }</th>
-			<th scope="col">{ $i18n.t("viewer:subject") }</th>
-		</tr>
+	<div class="table-div" style="overflow-x: auto;">
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">{ $i18n.t("viewer:time") }</th>
+					<th scope="col">{ $i18n.t("viewer:subject") }</th>
+				</tr>
 
 
-	</thead>
-	<tbody>
-		{#each schedule as sched_item, idx }
-			<tr>
-				{#if sched_item.break }
-					<th scope="row" colspan="3">
-						{ $i18n.t("viewer:recess") }
-					</th>
-				{:else}
-					<th>
-						{ idx + 1 }
-					</th>
-					<td>
-						{ sched_item.start } - { sched_item.end }
-					</td>
-					<td>
-						{ sched_item.name }
-					</td>
-				{/if}
-			</tr>
+			</thead>
+			<tbody>
+				{#each schedule as sched_item, idx }
+					<tr>
+						{#if sched_item.break }
+							<th scope="row" colspan="3">
+								{ $i18n.t("viewer:recess") }
+							</th>
+						{:else}
+							<th>
+								{ idx + 1 }
+							</th>
+							<td>
+								{ sched_item.start } - { sched_item.end }
+							</td>
+							<td>
+								{ sched_item.name }
+							</td>
+						{/if}
+					</tr>
 
-		{/each}
-	</tbody>
-</table>
+				{/each}
+			</tbody>
+		</table>
+	</div>
 {:else}
 	<p>
 		{ $i18n.t("viewer:schedule_unavailable") }.
@@ -58,6 +60,11 @@ table {
 	font-family: sans-serif;
 	font-size: 0.8rem;
 	letter-spacing: 1px;
+	width: 100%;
+}
+
+.table-div {
+	overflow-x: auto;
 }
 
 @media (prefers-color-scheme: dark)
