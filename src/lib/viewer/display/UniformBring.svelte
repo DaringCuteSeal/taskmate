@@ -5,13 +5,11 @@ const i18n = getContext("i18n");
 export let uniform_bring: String | null = null;
 </script>
 
-{#if uniform_bring != null}
-	<p>
-		<i class="fa-solid fa-bag-shopping"></i>
-		{ $i18n.t("viewer:bring_uniform") }
+<p>
+	<i class="fa-solid fa-bag-shopping"></i>
+	{ $i18n.t("viewer:bring_uniform") }
 
-		<span class="viewer-infobox bg-pink">
-			{ uniform_bring ?? "???" }
-		</span>
-	</p>
-{/if}
+	<span class="viewer-infobox bg-pink">
+		{ uniform_bring ?? "-" }
+	</span>
+</p>
