@@ -60,7 +60,6 @@ table {
 	font-family: sans-serif;
 	font-size: 0.8rem;
 	letter-spacing: 1px;
-	width: 100%;
 }
 
 .table-div {
