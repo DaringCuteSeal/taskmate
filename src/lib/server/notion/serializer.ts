@@ -115,7 +115,7 @@ export async function getAgenda(date: dayjs.Dayjs): Promise<Agenda | null>
 	return {
 		school_start: agenda_data.Start?.rich_text[0]?.text?.content,
 		school_end: agenda_data.End?.rich_text[0]?.text?.content,
-		school_end_extracurricular: agenda_data.End_Extracurricular?.rich_text[0].text?.content,
+		school_end_extracurricular: agenda_data.End_Extracurricular?.rich_text[0]?.text?.content,
 		extracurricular: agenda_data.Extracurricular?.checkbox,
 		uniform: agenda_data.Uniform?.select?.name,
 		uniform_bring: agenda_data.Bring_Uniform?.select?.name,
