@@ -34,7 +34,6 @@ export async function getPreferences(pb_instance: PocketBase, sess_id: string): 
 
 }
 
-
 export async function setPreferences(pb_instance: PocketBase, sess_id: string, preferences: UserPreferences)
 {
 
@@ -51,7 +50,7 @@ export async function setPreferences(pb_instance: PocketBase, sess_id: string, p
 		session_id: sess_id,
 		subjects_filter: stringifySubjectsFilter(preferences.subjects_filter),
 		expiry: user.expiry,
-		language: preferences.language,
+		lang: preferences.language,
 	};
 
 	await pb_instance.collection(PB_USERS_DB).update('RECORD_ID', data);
