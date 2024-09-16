@@ -17,6 +17,7 @@ export type ScheduleItem = {
 }
 
 export type Agenda = {
+	last_edited: string | null,
 	school_start: string | null,
 	school_end: string | null,
 	school_end_extracurricular: string | null,
@@ -103,7 +104,8 @@ export async function getAgenda(date: dayjs.Dayjs): Promise<Agenda | null>
 		return null
 	}
 
-	const agenda_data: any = agenda_query.results[0].properties; // HACK: sorry, i really don't wanna check the attributes one-by-one
+	const query_results: any = agenda_query.results[0]; // HACK: sorry, i really don't wanna check the attributes one-by-one
+	const agenda_data: any = query_results.properties;
 	const schedule_data_url = agenda_data.Schedule?.files[0]?.file?.url;
 	var schedule_data: string = "";
 	if (!(schedule_data_url === undefined))
@@ -113,6 +115,7 @@ export async function getAgenda(date: dayjs.Dayjs): Promise<Agenda | null>
 	}
 
 	return {
+		last_edited: query_results.last_edited_time,
 		school_start: agenda_data.Start?.rich_text[0]?.text?.content,
 		school_end: agenda_data.End?.rich_text[0]?.text?.content,
 		school_end_extracurricular: agenda_data.End_Extracurricular?.rich_text[0]?.text?.content,

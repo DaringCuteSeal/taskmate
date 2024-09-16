@@ -76,7 +76,7 @@ if (tasks != null)
 	</div>
 {:else}
 	<p>
-		{ $i18n.t("viewer:schedule_unavailable") }.
+		{ $i18n.t("viewer:tasks_unavailable") }.
 	</p>
 
 {/if}

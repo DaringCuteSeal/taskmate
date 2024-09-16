@@ -4,9 +4,11 @@ import { getPreferences, type UserPreferences } from '$lib/server/notion/account
 import { getTasks, getAgenda, getEvents, type Agenda, type SchoolEvent, type Task } from '$lib/server/notion/serializer';
 import { SESS_ID_COOKIE_NAME } from '$lib/server/auth/conf';
 import dayjs from 'dayjs';
+import type { Cookies } from '@sveltejs/kit';
 
 enum UrlParamName {
-	DATE = "date"
+	DATE = "date",
+	LANGUAGE = "lang"
 }
 
 type PageLoadData = {
@@ -16,13 +18,13 @@ type PageLoadData = {
 	events_data: Array<SchoolEvent> | null,
 	tasks_data: Array<Task> | null
 	date: string | null,
-
+	override_language: string | null,
 }
 
-export const load: PageServerLoad = async ({ cookies, url }) => {
+async function get_page_data(cookies: Cookies, url: URL): Promise<PageLoadData> {
 	const session_id = cookies.get(SESS_ID_COOKIE_NAME);
 
-	var preferences: UserPreferences | null = null;
+	let preferences: UserPreferences | null = null;
 
 	if (session_id !== undefined && session_id.toString().length > 0)
 	{
@@ -36,8 +38,8 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
 
 	}
 
-
-	var target_date = dayjs(url.searchParams.get(UrlParamName.DATE))
+	const language = url.searchParams.get(UrlParamName.LANGUAGE);
+	let target_date = dayjs(url.searchParams.get(UrlParamName.DATE))
 
 	if (!target_date.isValid())
 	{
@@ -52,6 +54,11 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
 		events_data: await getEvents(target_date),
 		tasks_data: await getTasks(target_date),
 		date: target_date.format(),
-
+		override_language: language
 	} satisfies PageLoadData
+
+}
+export const load: PageServerLoad = async ({ cookies, url }) => {
+	return await get_page_data(cookies, url) satisfies PageLoadData
 };
+

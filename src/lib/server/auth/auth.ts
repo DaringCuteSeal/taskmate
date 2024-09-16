@@ -29,7 +29,7 @@ async function hashPassword(password: string): Promise<string>
 
 }
 
-async function verifyPassword(hash: string, password: string): Promise<bool>
+async function verifyPassword(hash: string, password: string): Promise<boolean>
 {
 	return await argon2Verify(hash, password);
 }
@@ -47,7 +47,6 @@ export async function registerUser(username: string, password: string): Promise<
 {
 	if (await recordExists(pb, PB_USERS_DB, UsersDbField.USERNAME, username))
 		throw new Error("Username already taken!")
-	console.log(await hashPassword(password));
 
 	const user: User = {
 		username: username,
@@ -71,7 +70,6 @@ export async function logInUser(username: string, password: string): Promise<Ses
 		throw new Error("User does not exist!")
 
 	const user_record = await pb.collection(PB_USERS_DB).getFirstListItem(`username="${username}"`);
-	console.log(await verifyPassword(user_record.password, password));
 	if (await verifyPassword(user_record.password, password))
 	{
 		var sessID: SessID;

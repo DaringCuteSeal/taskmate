@@ -12,18 +12,18 @@ import SchoolEvents from '$lib/viewer/display/SchoolEvents.svelte';
 import Prayer from '$lib/viewer/display/Prayer.svelte';
 import Notes from '$lib/viewer/display/Notes.svelte';
 import Title from '$lib/viewer/display/Title.svelte';
+    import LastEdit from '$lib/viewer/display/LastEdit.svelte';
 const i18n = getContext("i18n");
 
 export let data: PageData;
 
 // Defaults if not logged in
 var extracurricular = false;
+$i18n.changeLanguage(data?.override_language ?? data?.preferences?.language ?? "en");
 
 // If logged in
 if (data.preferences != null)
 {
-	$i18n.changeLanguage(data.preferences.language ?? "en");
-
 	if (data.agenda_data?.extracurricular)
 	{	
 		const day_no = dayjs(data.date).day();
@@ -52,6 +52,12 @@ if (data.preferences != null)
 		<div class="title">
 			<Title
 				date={data.date}
+			/>
+		</div>
+
+		<div class="last-edit">
+			<LastEdit
+				last_edit={data.agenda_data?.last_edited}
 			/>
 		</div>
 
@@ -117,6 +123,11 @@ if (data.preferences != null)
 .title { 
 	text-align: center;
 	font-size: 1em;
+}
+
+.last-edit {
+	text-align: center;
+	color: #464646;
 }
 
 .agenda-card {
