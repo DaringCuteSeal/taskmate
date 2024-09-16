@@ -47,19 +47,21 @@ if (data.preferences != null)
 
 </script>
 
-{ #if data.agenda_data != null }
-	<div class="agenda-card">
-		<div class="title">
-			<Title
-				date={data.date}
-			/>
-		</div>
 
-		<div class="last-edit">
-			<LastEdit
-				last_edit={data.agenda_data?.last_edited}
-			/>
-		</div>
+	<div class="title">
+		<Title
+			date={data.date}
+		/>
+	</div>
+
+{ #if data.agenda_data != null }
+
+	<div class="last-edit">
+		<LastEdit
+			last_edit={data.agenda_data?.last_edited}
+		/>
+	</div>
+	<div class="agenda-card">
 
 		<div class="display-card bg-school-duration">
 			<SchoolDuration
@@ -116,7 +118,7 @@ if (data.preferences != null)
 
 	</div>
 { :else }
-	<p>No agenda written.</p>
+	<p class="empty-agenda">No agenda written.</p>
 { /if }
 
 <style>
@@ -146,6 +148,9 @@ if (data.preferences != null)
 	border-radius: 10px;
 }
 
+.empty-agenda {
+	text-align: center;
+}
 @media (prefers-color-scheme: dark)
 {
 	.display-card { 

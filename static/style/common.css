@@ -3,7 +3,7 @@
 	src: url("/assets/SUSE-VariableFont_wght.ttf") format("truetype"),
 }
 
-p, label, h1, h2, h3, h4, tr {
+p, label, h1, h2, h3, h4, tr, div, span {
 	font-family: "SUSE"
 
 }
@@ -43,7 +43,7 @@ button:hover {
 	body { 
 		background-color: #22262E;
 	}
-	p, label, h1, h2, h3, h4, tr {
+	p, label, h1, h2, h3, h4, tr, div, span {
 		color: #CBD3E3;
 
 	}
@@ -55,7 +55,7 @@ button:hover {
 	body { 
 		background-color: #DADFEB;
 	}
-	p, label, h1, h2, h3, h4, tr {
+	p, label, h1, h2, h3, h4, tr, div, span {
 		color: #191A1B;
 
 	}
