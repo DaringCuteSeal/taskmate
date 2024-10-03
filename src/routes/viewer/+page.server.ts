@@ -3,7 +3,7 @@ import { pb } from '$lib/server/auth/auth';
 import { getPreferences, type UserPreferences } from '$lib/server/notion/account_settings';
 import { getTasks, getAgenda, getEvents, type Agenda, type SchoolEvent, type Task } from '$lib/server/notion/serializer';
 import { SESS_ID_COOKIE_NAME } from '$lib/server/auth/conf';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import type { Cookies } from '@sveltejs/kit';
 
 enum UrlParamName {
@@ -39,7 +39,14 @@ async function get_page_data(cookies: Cookies, url: URL): Promise<PageLoadData> 
 	}
 
 	const language = url.searchParams.get(UrlParamName.LANGUAGE);
-	let target_date = dayjs(url.searchParams.get(UrlParamName.DATE))
+	let url_date = url.searchParams.get(UrlParamName.DATE);
+	let target_date: Dayjs | null;
+	if (url_date == null) {
+		target_date = dayjs().add(1, "day");
+	}
+	else {
+		target_date = dayjs(url.searchParams.get(UrlParamName.DATE));
+	}
 
 	if (!target_date.isValid())
 	{

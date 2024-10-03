@@ -12,7 +12,7 @@ import SchoolEvents from '$lib/viewer/display/SchoolEvents.svelte';
 import Prayer from '$lib/viewer/display/Prayer.svelte';
 import Notes from '$lib/viewer/display/Notes.svelte';
 import Title from '$lib/viewer/display/Title.svelte';
-    import LastEdit from '$lib/viewer/display/LastEdit.svelte';
+import LastEdit from '$lib/viewer/display/LastEdit.svelte';
 const i18n = getContext("i18n");
 
 export let data: PageData;
