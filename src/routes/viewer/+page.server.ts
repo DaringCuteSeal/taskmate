@@ -46,13 +46,12 @@ async function get_page_data(cookies: Cookies, url: URL): Promise<PageLoadData> 
 	}
 	else {
 		target_date = dayjs(url.searchParams.get(UrlParamName.DATE));
+		if (!target_date.isValid())
+		{
+			target_date = dayjs().add(1, "day");
+		}
 	}
 
-	if (!target_date.isValid())
-	{
-		target_date = dayjs().add(1, "day");
-
-	}
 
 	return {
 		preferences: preferences,
