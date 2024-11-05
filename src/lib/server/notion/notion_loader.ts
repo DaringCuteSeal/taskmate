@@ -8,17 +8,28 @@ const notion = new Client({
 	auth: NOTION_TOKEN,
 });
 
-export async function queryTasksNotion(date: dayjs.Dayjs): Promise<QueryDatabaseResponse>
+export async function queryTasksNotion(date: dayjs.Dayjs, ): Promise<QueryDatabaseResponse>
 {
 	const databaseId = NOTION_TASKS_DB;
 	return await notion.databases.query(
 			{
 			database_id: databaseId,
 			filter: {
-				"property": "Due",
-				"date": {
-					"on_or_after": date.format("YYYY-MM-DD")
-				},
+				"and": [
+					{
+						"property": "Due",
+						"date": {
+							"on_or_after": date.format("YYYY-MM-DD")
+						},
+					},
+					{
+						"property": "Created",
+						"date": {
+							"on_or_before": date.format("YYYY-MM-DD")
+						}
+
+					}
+				]
 			},
 			sorts: [
 			{
