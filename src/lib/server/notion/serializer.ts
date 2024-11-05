@@ -159,7 +159,7 @@ export async function getTasks(date: dayjs.Dayjs): Promise<Array<Task> | null>
 				title: item.properties.Subject.select.name,
 				color: item.properties.Subject.select.color
 			} : null,
-			due: item.properties.Due?.date.start,
+			due: item.properties.Due?.date?.start,
 			id: item.properties.ID?.unique_id
 		}
 		tasks.push(task_item);
