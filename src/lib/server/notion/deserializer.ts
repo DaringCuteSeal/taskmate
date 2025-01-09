@@ -84,7 +84,7 @@ async function getAgendaNote(page_id: string): Promise<Array<string> | null>
 	if (!('paragraph' in page_query.results[0]))
 		return null;
 
-	return page_query.results[0].paragraph.rich_text[0].plain_text?.split('\n');
+	return page_query.results[0].paragraph.rich_text[0]?.plain_text?.split('\n');
 }
 
 export async function getAgenda(date: dayjs.Dayjs): Promise<Agenda | null>
