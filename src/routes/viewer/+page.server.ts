@@ -1,7 +1,7 @@
 import type { PageServerLoad } from './$types';
 import { pb } from '$lib/server/auth/auth';
 import { getPreferences, type UserPreferences } from '$lib/server/notion/account_settings';
-import { getTasks, getAgenda, getEvents, type Agenda, type SchoolEvent, type Task } from '$lib/server/notion/serializer';
+import { getTasks, getAgenda, getEvents, type Agenda, type SchoolEvent, type Task } from '$lib/server/notion/deserializer';
 import { SESS_ID_COOKIE_NAME } from '$lib/server/auth/conf';
 import dayjs from 'dayjs';
 import type { Cookies } from '@sveltejs/kit';

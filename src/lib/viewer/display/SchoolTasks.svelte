@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Task } from "$lib/server/notion/serializer";
+import type { Task } from "$lib/server/notion/deserializer";
 import { getContext } from "svelte";
 import Time from "@radulucut/relative";
 import { getColorHex } from "./get_colors"
