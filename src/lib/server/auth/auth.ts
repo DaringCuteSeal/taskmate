@@ -11,7 +11,7 @@ export const pb = new PocketBase(PB_DB_URL);
 
 if (PB_ADMIN_PASSWORD != undefined && PB_ADMIN_USER != undefined)
 {
-	await pb.admins.authWithPassword(PB_ADMIN_USER, PB_ADMIN_PASSWORD);
+	await pb.collection('_superusers').authWithPassword(PB_ADMIN_USER, PB_ADMIN_PASSWORD);
 }
 else
 {
