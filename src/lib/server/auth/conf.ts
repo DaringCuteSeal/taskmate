@@ -22,7 +22,7 @@ export enum UsersDbField {
 }
 
 export const PB_DB_URL = "https://taskmate.pockethost.io";
-export const PB_USERS_DB = "users";
+export const PB_USERS_DB = "taskmate_users";
 export const PB_FINISHED_TASKS_DB="finished_tasks";
 
 export const PB_ADMIN_USER=process.env.DB_ADMIN_USER
