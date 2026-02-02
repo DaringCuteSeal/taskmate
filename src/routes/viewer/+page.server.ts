@@ -42,6 +42,7 @@ async function get_page_data(cookies: Cookies, url: URL): Promise<PageLoadData> 
 	let url_date = url.searchParams.get(UrlParamName.DATE);
 	let target_date;
 	if (url_date == null) {
+		// TODO: use UTC
 		target_date = dayjs().add(1, "day");
 	}
 	else {

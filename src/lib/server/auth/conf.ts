@@ -31,4 +31,4 @@ export const PB_ADMIN_PASSWORD=process.env.DB_ADMIN_PASSWORD
 
 export const SESS_ID_COOKIE_NAME = "sess_id"
 
-export const API_key = process.env.TASKMATE_API_KEY
+export const TASKMATE_API_KEY = process.env.TASKMATE_API_KEY
