@@ -21,6 +21,7 @@ export enum UsersDbField {
 	EXPIRY = "expiry"
 }
 
+// TODO: make these defined with env variables
 export const PB_DB_URL = "https://taskmate.pockethost.io";
 export const PB_USERS_DB = "taskmate_users";
 export const PB_FINISHED_TASKS_DB="finished_tasks";
@@ -29,3 +30,5 @@ export const PB_ADMIN_USER=process.env.DB_ADMIN_USER
 export const PB_ADMIN_PASSWORD=process.env.DB_ADMIN_PASSWORD
 
 export const SESS_ID_COOKIE_NAME = "sess_id"
+
+export const API_key = process.env.TASKMATE_API_KEY
