@@ -153,6 +153,7 @@ export async function getTasks(date: dayjs.Dayjs): Promise<Array<Task> | null>
 	const tasks: Array<Task> = [];
 
 	tasks_query.results.forEach((item: any) => { // HACK: more hack
+		console.log(item.properties);
 		let task_item: Task = {
 			description: item.properties.Task?.title[0]?.text?.content,
 			subject: item.properties.Subject?.select ? {
@@ -160,7 +161,7 @@ export async function getTasks(date: dayjs.Dayjs): Promise<Array<Task> | null>
 				color: item.properties.Subject.select.color
 			} : null,
 			due: item.properties.Due?.date?.start,
-			id: item.properties.ID?.unique_id
+			id: item.properties.ID?.unique_id?.number
 		}
 		tasks.push(task_item);
 	});
