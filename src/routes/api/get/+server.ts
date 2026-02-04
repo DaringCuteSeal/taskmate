@@ -28,7 +28,7 @@ export const POST: RequestHandler = async ({ request }) => {
 	}
 
 	let target_date;
-	if (data.date == null) {
+	if (Object.hasOwn(data, 'date')) {
 		target_date = dayjs(data.date)
 	} else {
 		target_date = dayjs()
