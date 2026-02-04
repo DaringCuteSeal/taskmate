@@ -156,7 +156,6 @@ export async function getTasks(date: dayjs.Dayjs): Promise<Array<Task> | null>
 	const tasks: Array<Task> = [];
 
 	tasks_query.results.forEach((item: any) => { // HACK: more hack
-		console.log(item.properties);
 		let task_item: Task = {
 			description: item.properties.Task?.title[0]?.text?.content,
 			subject: item.properties.Subject?.select ? {
