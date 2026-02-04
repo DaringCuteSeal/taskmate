@@ -84,6 +84,9 @@ async function getAgendaNote(page_id: string): Promise<Array<string> | null>
 	if (!('paragraph' in page_query.results[0]))
 		return null;
 
+	if (page_query.results[0].paragraph.rich_text.length == 0)
+		return null;
+
 	return page_query.results[0].paragraph.rich_text[0]?.plain_text?.split('\n');
 }
 
@@ -135,7 +138,7 @@ export async function getAgenda(date: dayjs.Dayjs): Promise<Agenda | null>
 		title: agenda_data.Morning_Devotion_2.select.name,
 		color: agenda_data.Morning_Devotion_2.select.color
 		} : null,
-		notes: agenda_query.results[0].object == "page" ? await getAgendaNote(agenda_query.results[0].id) : null,
+		notes: agenda_query.results[0].object == "page" ? (await getAgendaNote(agenda_query.results[0].id)) : null,
 	};
 }
 
