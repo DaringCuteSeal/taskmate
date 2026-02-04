@@ -27,12 +27,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		throw error(400, 'Provide a date');
 	}
 
-	let target_date;
-	if (Object.hasOwn(data, 'date')) {
-		target_date = dayjs(data.date)
-	} else {
-		target_date = dayjs()
-	}
+	let target_date = dayjs(data.date);
 
 	let return_data: AgendaData = {
 		agenda_data: await getAgenda(target_date),
