@@ -121,7 +121,7 @@ export async function getAgenda(date: dayjs.Dayjs): Promise<Agenda | null>
 		school_end_extracurricular: agenda_data.End_Extracurricular?.rich_text[0]?.text?.content,
 		extracurricular: agenda_data.Extracurricular?.checkbox,
 		uniform: agenda_data.Uniform?.select?.name,
-		uniform_bring: agenda_data.Bring_Uniform?.select?.name,
+		uniform_bring: agenda_data.Bring_Uniform?.select?.name ? agenda_data.Bring_Uniform?.select?.name : null,
 		schedule: schedule_data.length > 0 ? parseSchedule(schedule_data) : null,
 		end_prayer: agenda_data.End_Prayer?.select ? {
 			title: agenda_data.End_Prayer.select.name,
